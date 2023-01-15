@@ -9,21 +9,12 @@ import { PokedexCard } from "./PokemonCard";
 
 export const PokemonById = () => {
   const [pokemonId, setPokemonId] = createSignal(null);
-  const [pokemon] = createResource(pokemonId, async (id) => {
-    console.log({ id });
-    if (id === null) {
-      return null;
-    }
-
+  const [pokemon] = createResource(pokemonId, async (id) => {        
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
       (res) => res.json()
     );
 
     return res;
-  });
-
-  createEffect(() => {
-    console.log({ pokemon: pokemon(), pokemonId: pokemonId() });
   });
 
   return (
